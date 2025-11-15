@@ -1,0 +1,51 @@
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+lib/
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+*.swp
+
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
+prisma/migrations/*-draft/
+
+# Cache
+.cache/
+tmp/
+temp/
+
+# Coverage
+coverage/
+
+# Redis dump (if created locally)
+dump.rdb
+appendonly.aof
+
+# Docker artifacts
+*.pid

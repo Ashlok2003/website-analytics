@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: Reporting API
+  version: 1.0.0
+  description: API for retrieving aggregated website analytics stats.
+servers:
+  - url: http://localhost:3001
+    description: Local development server
+paths:
+  /stats:
+    get:
+      summary: Get site stats
+      description: Aggregates page view stats for a site, optionally filtered by date. Returns total views, unique users, and top paths.
+      parameters:
+        - name: site_id
+          in: query
+          required: true
+          schema:
+            type: string
+          example: site-abc-123
+        - name: date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          example: 2025-11-12
+      responses:
+        "200":
+          description: Aggregated stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsResponse"
+              example:
+                site_id: site-abc-123
+                date: 2025-11-12
+                total_views: 1450
+                unique_users: 212
+                top_paths:
+                  - path: /pricing
+                    views: 700
+                  - path: /blog/post-1
+                    views: 500
+                  - path: /
+                    views: 250
+        "400":
+          description: Missing or invalid site_id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Database query error
+components:
+  schemas:
+    StatsResponse:
+      type: object
+      required:
+        - site_id
+        - total_views
+        - unique_users
+        - top_paths
+      properties:
+        site_id:
+          type: string
+        date:
+          type: string
+          format: date
+        total_views:
+          type: integer
+          example: 1450
+        unique_users:
+          type: integer
+          example: 212
+        top_paths:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              views:
+                type: integer
