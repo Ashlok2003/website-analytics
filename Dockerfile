@@ -12,5 +12,7 @@ COPY package*.json ./
 RUN npm ci --only=production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
-CMD ["node", "dist/services/ingestion.js"]
-EXPOSE 3000
+COPY --from=builder /app/docs ./docs
+COPY ecosystem.config.js ./
+CMD ["pm2-runtime", "start", "ecosystem.config.js"]
+EXPOSE 3000 3001
