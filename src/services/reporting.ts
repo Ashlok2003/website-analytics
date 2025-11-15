@@ -8,7 +8,7 @@ import { prisma } from '../lib/db'
 import 'dotenv/config'
 
 const app = express()
-app.use(cors())
+app.use(cors({ origin: '*' }))
 
 const PORT = Number(process.env.REPORTING_PORT) || 3001
 

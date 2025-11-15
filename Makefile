@@ -1,4 +1,4 @@
-.PHONY: install setup build start-ingestion start-processor start-reporting start-all
+.PHONY: install setup build start-ingestion start-processor start-reporting start-all docker-build docker-start docker-stop
 
 install:
 	npm ci
@@ -24,3 +24,13 @@ start-reporting:
 start-all:
 	$(MAKE) setup
 	$(MAKE) start-ingestion & $(MAKE) start-processor & $(MAKE) start-reporting
+
+docker-build:
+	docker build -t tjra .
+
+docker-start:
+	docker run -d --name tjra-container --env-file .env -p 4000:3000 -p 4001:3001 tjra
+
+docker-stop:
+	docker stop tjra-container
+	docker rm tjra-container

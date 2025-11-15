@@ -9,7 +9,7 @@ import { eventSchema } from '../lib/validator'
 import 'dotenv/config'
 
 const app = express()
-app.use(cors())
+app.use(cors({ origin: '*' }))
 app.use(express.json())
 
 const PORT = Number(process.env.INGESTION_PORT) || 3000

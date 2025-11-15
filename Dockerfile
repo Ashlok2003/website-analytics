@@ -11,8 +11,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/src/generated ./src/generated
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/docs ./docs
 COPY ecosystem.config.js ./
-CMD ["pm2-runtime", "start", "ecosystem.config.js"]
+CMD ["npx", "pm2-runtime", "start", "ecosystem.config.js"]
 EXPOSE 3000 3001
